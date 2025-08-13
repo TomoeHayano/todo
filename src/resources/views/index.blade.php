@@ -28,23 +28,13 @@
   <form class="create-form" action="/todos" method="post">
     @csrf
     <div class="create-form__item">
-      <input class="create-form__item-input" type="text" name="content"  
-            value="{{ old('content') }}" 
+      <input class="create-form__item-input" type="text" name="content"
+             value="{{ old('content') }}" 
       />
       <select class="create-form__item-select">
-+       <option value="">カテゴリ</option>
-+     </select>
-    </div>
-
-  <div class="create-form__item">
-    <select class="create-form__item-input" name="category_id">
       <option value="">カテゴリ</option>
-      @foreach ($categories as $cat)
-        <option value="{{ $cat->id }}">{{ $cat->name }}</option>
-      @endforeach
-    </select>
-  </div>
-
+      </select>
+    </div>
     <div class="create-form__button">
       <button class="create-form__button-submit" type="submit">作成</button>
     </div>
@@ -78,14 +68,12 @@
             @csrf
             @method('PATCH')
             <div class="update-form__item">
-                <input class="update-form__item-input" type="text" name="content" value="{{ $todo['content'] }}">
-                <input type="hidden" name="id" value="{{ $todo['id'] }}">
+                <input class="update-form__item-input" type="text" name="content" value="{{ $todo['content'] }}" />
+                <input type="hidden" name="id" value="{{ $todo['id'] }}" />
             </div>
-
             <div class="update-form__item">
               <p class="update-form__item-p">Category 1</p>
             </div>
-
             <div class="update-form__button">
               <button class="update-form__button-submit" type="submit">更新</button>
             </div>
