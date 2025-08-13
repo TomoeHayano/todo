@@ -19,21 +19,29 @@ class TodoController extends Controller
 
     public function store(TodoRequest $request)
     {
-        $todo = $request->only(['content']);
-        Todo::create($todo); //create関数でviewsに変数を送信する
+        $todo = $request->only(['category_id', 'content']);
+        Todo::create($todo);
         
         return redirect('/')->with('success', 'Todoを作成しました');
     }
     public function update(TodoRequest $request)
     {
-    $todo = $request->only(['content']);
-    Todo::find($request->id)->update($todo);
+        $todo = $request->only(['content']);
+        Todo::find($request->id)->update($todo);
 
     return redirect('/')->with('success', 'Todoを更新しました');
     }
-    public function destroy(Request $request)
+        public function destroy(Request $request)
     {
-    Todo::find($request->id)->delete();
-    return redirect('/')->with('success', 'Todoを削除しました');
+        Todo::find($request->id)->delete();
+        return redirect('/')->with('success', 'Todoを削除しました');
+    }
+
+    public function search(Request $request)
+    {
+        $todos = Todo::with('category')->CategorySearch($request->category_id)->KeywordSearch($request->keyword)->get();
+        $categories = Category::all();
+
+    return view('index', compact('todos', 'categories'));
     }
 }
